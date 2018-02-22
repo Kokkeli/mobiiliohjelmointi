@@ -1,5 +1,6 @@
 # Harjoitustyö ja oppimispäiväkirja mobiiliohjelmoinnin kurssille. PLA-32820 2018
 Harjoitustyö tulee löytymään tämän repositoryn master haarasta. Kurssin varrella tehtävät pienemmän harjoitustehtävät löytyvät niille erikseen tehdyistä haaroista/tageista. Oppimispäiväkirjaa päivitän tähän readme-tiedoston jatkoksi.
+# Oppimispäiväkirja
 ___
 ### Harjoitus 1
 Palautus erikseen PDF:nä

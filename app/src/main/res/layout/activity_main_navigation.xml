@@ -7,27 +7,269 @@
     android:layout_height="match_parent"
     tools:context="com.example.kokkeli.bpappis.MainNavigation">
 
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/title_home"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation" />
+        app:menu="@menu/navigation">
+
+    </android.support.design.widget.BottomNavigationView>
+
+    <Space
+        android:id="@+id/ylatila"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintBottom_toTopOf="@id/plustulos"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/plustulos"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="0"
+        app:layout_constraintBottom_toTopOf="@+id/miinustulos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/pluslaske"
+        app:layout_constraintTop_toBottomOf="@+id/ylatila"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/plusmerkki"
+        android:layout_width="20dp"
+        android:layout_height="18dp"
+        android:text="+"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/plus2"
+        app:layout_constraintEnd_toStartOf="@+id/plus2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/plus1" />
+
+    <Button
+        android:id="@+id/pluslaske"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LASKE"
+        android:onClick="pluslasku"
+        app:layout_constraintBaseline_toBaselineOf="@+id/plustulos"
+        app:layout_constraintEnd_toStartOf="@+id/plustulos"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/plus2" />
+
+    <EditText
+        android:id="@+id/plus2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/pluslaske"
+        app:layout_constraintEnd_toStartOf="@+id/pluslaske"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/plusmerkki" />
+
+    <EditText
+        android:id="@+id/plus1"
+        android:layout_width="80dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/plusmerkki"
+        app:layout_constraintEnd_toStartOf="@+id/plusmerkki"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/miinustulos"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="0"
+        app:layout_constraintBottom_toTopOf="@+id/kertotulos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/miinuslaske"
+        app:layout_constraintTop_toBottomOf="@+id/plustulos"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/miinusmerkki"
+        android:layout_width="20dp"
+        android:layout_height="18dp"
+        android:text="-"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/miinus2"
+        app:layout_constraintEnd_toStartOf="@+id/miinus2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/miinus1" />
+
+    <Button
+        android:id="@+id/miinuslaske"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LASKE"
+        android:onClick="miinuslasku"
+        app:layout_constraintBaseline_toBaselineOf="@+id/miinustulos"
+        app:layout_constraintEnd_toStartOf="@+id/miinustulos"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/miinus2" />
+
+    <EditText
+        android:id="@+id/miinus1"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/miinusmerkki"
+        app:layout_constraintEnd_toStartOf="@+id/miinusmerkki"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/miinus2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/miinuslaske"
+        app:layout_constraintEnd_toStartOf="@+id/miinuslaske"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/miinusmerkki" />
+
+    <TextView
+        android:id="@+id/kertotulos"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="0"
+        app:layout_constraintBottom_toTopOf="@+id/jakotulos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/kertolaske"
+        app:layout_constraintTop_toBottomOf="@+id/miinustulos"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/kertomerkki"
+        android:layout_width="20dp"
+        android:layout_height="18dp"
+        android:text="x"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/kerto2"
+        app:layout_constraintEnd_toStartOf="@+id/kerto2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/kerto1" />
+
+    <Button
+        android:id="@+id/kertolaske"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LASKE"
+        android:onClick="kertolasku"
+        app:layout_constraintBaseline_toBaselineOf="@+id/kertotulos"
+        app:layout_constraintEnd_toStartOf="@+id/kertotulos"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/kerto2" />
+
+    <EditText
+        android:id="@+id/kerto1"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/kertomerkki"
+        app:layout_constraintEnd_toStartOf="@+id/kertomerkki"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/kerto2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/kertolaske"
+        app:layout_constraintEnd_toStartOf="@+id/kertolaske"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/kertomerkki" />
+
+    <TextView
+        android:id="@+id/jakotulos"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/jakolaske"
+        app:layout_constraintTop_toBottomOf="@+id/kertotulos" />
+
+    <TextView
+        android:id="@+id/jakomerkki"
+        android:layout_width="20dp"
+        android:layout_height="18dp"
+        android:text="/"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/jako2"
+        app:layout_constraintEnd_toStartOf="@+id/jako2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/kerto1" />
+
+    <Button
+        android:id="@+id/jakolaske"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LASKE"
+        android:onClick="jakolasku"
+        app:layout_constraintBaseline_toBaselineOf="@+id/jakotulos"
+        app:layout_constraintEnd_toStartOf="@+id/jakotulos"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/jako2" />
+
+    <EditText
+        android:id="@+id/jako1"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/jakomerkki"
+        app:layout_constraintEnd_toStartOf="@+id/jakomerkki"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/jako2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/jakolaske"
+        app:layout_constraintEnd_toStartOf="@+id/jakolaske"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/jakomerkki" />
+
+    <Button
+        android:id="@+id/tyhjenna"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tyhjennä kaikki"
+        android:onClick="tyhjenna"
+        app:layout_constraintTop_toBottomOf="@id/jako1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/jako1" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="Näytä logi"
+        android:id="@+id/naytalogi"
+        android:onClick="naytalogi"
+        app:layout_constraintStart_toEndOf="@id/tyhjenna"
+        app:layout_constraintTop_toBottomOf="@id/jako2"/>
 
 </android.support.constraint.ConstraintLayout>
