@@ -151,14 +151,15 @@ public class MainNavigation extends AppCompatActivity {
         miinusTulos.setText("0");
         kertoTulos.setText("0");
         jakoTulos.setText("0");
-        plus1.setText("0");
-        plus2.setText("0");
-        miinus1.setText("0");
-        miinus2.setText("0");
-        kerto1.setText("0");
-        kerto2.setText("0");
-        jako1.setText("0");
-        jako2.setText("0");
+        plus1.setText("");
+        plus2.setText("");
+        miinus1.setText("");
+        miinus2.setText("");
+        kerto1.setText("");
+        kerto2.setText("");
+        jako1.setText("");
+        jako2.setText("");
+        logi.clear();
     }
 
     public void naytalogi(android.view.View view) {
