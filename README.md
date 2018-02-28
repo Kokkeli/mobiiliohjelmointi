@@ -1,5 +1,6 @@
 # Harjoitustyö ja oppimispäiväkirja mobiiliohjelmoinnin kurssille. PLA-32820 2018
 Harjoitustyö tulee löytymään tämän repositoryn master haarasta. Kurssin varrella tehtävät pienemmän harjoitustehtävät löytyvät niille erikseen tehdyistä haaroista/tageista. Oppimispäiväkirjaa päivitän tähän readme-tiedoston jatkoksi.
+# Oppimispäiväkirja
 ___
 ### Harjoitus 1
 Palautus erikseen PDF:nä
@@ -16,3 +17,8 @@ Projektin lisääminen gittiin onnistui vaivatta. Lisäsin repositoryyn tagin, j
 
 Kaiken kaikkiaan onnistuin suuremmitta vaivoitta pystyttämään ympäristön ja asentamaan Hello world sovelluksen puhelimelle asti.
 ___
+### Harjoitus 4
+Valmis harjoitus löytyy haarasta harkka4 https://github.com/Kokkeli/mobiiliohjelmointi/tree/harkka4
+Tämä harjoitus tuotti jo hieman ongelmia ja opittua tuli roimasti. Suurimmaksi ongelmaksi tuli androidin layouttien luonti. Toisin sanoen UI:n rakentaminen osoittautui odotettua haastavammaksi. Tuntien hajoilun jälkeen kuitenkin aloin saamaan kiinni constraint layoutin luonnista ja rakentamisesta. Lopputulos on rakennettu constraint layoutin sisälle. UI:n luonnin jälkeen seuraava ongelma oli UI elementtien bindaaminen Javan puolelle. Tähän kuitenkin löytyi ratkaisut kohtalaisen helposti googlaamalla. Javaa en tosiaan ole ennen ohjelmoinut, joten myös joitakin pikkuasioita piti erikseen googlailla esim. syntaksiin liittyen. Itse bisneslogiikan kirjoittaminen ei kuitenkaan ollut iso työ vaan onnistui kohtuullisen helposti.
+
+Opittua tuli ainakin constraint layoutin kanssa pelaaminen, UI elementtien bindaaminen ja käyttäminen javan puolella ja uuden android intentin luominen ja sille datan passaaminen. Nyt onnistuu jo siis tällaisen pienen sovelluksen luominen oikein mukavasti.
