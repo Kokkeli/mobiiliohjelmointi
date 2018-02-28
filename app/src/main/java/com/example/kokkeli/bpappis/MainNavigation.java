@@ -4,10 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.content.Intent;
+
+
+import java.util.*;
 
 public class MainNavigation extends AppCompatActivity {
 
@@ -31,6 +36,8 @@ public class MainNavigation extends AppCompatActivity {
     private TextView miinusTulos;
     private TextView kertoTulos;
     private TextView jakoTulos;
+
+    public List<String> logi = new ArrayList<String>();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -77,7 +84,7 @@ public class MainNavigation extends AppCompatActivity {
         miinusTulos = (TextView) findViewById(R.id.miinustulos);
         kertoTulos = (TextView) findViewById(R.id.kertotulos);
         jakoTulos = (TextView) findViewById(R.id.jakotulos);
-        
+
         //mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -89,9 +96,11 @@ public class MainNavigation extends AppCompatActivity {
         {
             tulos = Float.valueOf(plus1.getText().toString()) + Float.valueOf(plus2.getText().toString());
             plusTulos.setText(Float.toString(tulos));
+            String str = plus1.getText().toString() + " + " + Float.valueOf(plus2.getText().toString()) + " = " + Float.toString(tulos);
+            logi.add(str);
         }
         catch (Exception e){
-
+            // TODO: error handling
         }
     }
 
@@ -101,9 +110,11 @@ public class MainNavigation extends AppCompatActivity {
         {
             tulos = Float.valueOf(miinus1.getText().toString()) - Float.valueOf(miinus2.getText().toString());
             miinusTulos.setText(Float.toString(tulos));
+            String str = miinus1.getText().toString() + " - " + Float.valueOf(miinus2.getText().toString()) + " = " + Float.toString(tulos);
+            logi.add(str);
         }
         catch (Exception e){
-
+            // TODO: error handling
         }
     }
 
@@ -113,9 +124,11 @@ public class MainNavigation extends AppCompatActivity {
         {
             tulos = Float.valueOf(kerto1.getText().toString()) * Float.valueOf(kerto2.getText().toString());
             kertoTulos.setText(Float.toString(tulos));
+            String str = kerto1.getText().toString() + " x " + Float.valueOf(kerto2.getText().toString()) + " = " + Float.toString(tulos);
+            logi.add(str);
         }
         catch (Exception e){
-
+            // TODO: error handling
         }
     }
 
@@ -125,9 +138,11 @@ public class MainNavigation extends AppCompatActivity {
         {
             tulos = Float.valueOf(jako1.getText().toString()) / Float.valueOf(jako2.getText().toString());
             jakoTulos.setText(Float.toString(tulos));
+            String str = jako1.getText().toString() + " / " + Float.valueOf(jako2.getText().toString()) + " = " + Float.toString(tulos);
+            logi.add(str);
         }
         catch (Exception e){
-
+            // TODO: error handling
         }
     }
 
@@ -146,7 +161,9 @@ public class MainNavigation extends AppCompatActivity {
         jako2.setText("0");
     }
 
-    public void naytalogi(android.view.View) {
-
+    public void naytalogi(android.view.View view) {
+        Intent intent = new Intent(getBaseContext(), LogActivity.class);
+        intent.putStringArrayListExtra("logi", (ArrayList<String>) logi);
+        startActivity(intent);
     }
  }
