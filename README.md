@@ -30,3 +30,10 @@ SQlite tietokannan yksinkertainen käyttö oli varsin helppoa. Apua ja esimerkki
 En tiedä miksi, mutta päätin tämän harjoituksen yhteydessä opiskella myös fragmenttien käyttöä. Tämä osoittautui paljon suuremmaksi työksi kuin SQLiten käyttö. Sovelluksessa on erillisellä fragmentilla tietokannan sisällön näyttö ja sisällön lisäys. Kumpikin fragmentti käyttää interfacea, jonka MainActivity täyttää. MainActivityn kontolle jää databasen kanssa keskustelu.
 
 SQLiten näin yksinkertainen käyttö tuli opittua varsin helposti. Fragmenttien käytön opiskeluun meni reippaasti enemmän aikaa mutta nyt miellä osaavani fragment <--> activity käytön ja niiden välisen keskustelun toteutuksen.
+___
+### Harjoitus 6
+Valmis harjoitus löytyy haarasta harkka5.
+https://github.com/Kokkeli/mobiiliohjelmointi/tree/harkka6
+Tämä harjoitus sujui helposti heti viidennen harjoituksen jälkeen. Poistamis ja järjestämis -ominausiiksien lisääminen oli helppoa, kun oikeat dokumentaatiot ja esimerkit olivat jo valmiiksi välilehdissä avonaisina.
+
+Harjoitus syvensi osaamistani sqlite+android ympäristössä. Yksi kokonaan uusi query tuli käyttöön (delete) ja kaikkien kirjojen haku queryyn tuli lisättyä järjestyksessä haku.
