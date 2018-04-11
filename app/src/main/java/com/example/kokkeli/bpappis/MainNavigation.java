@@ -35,7 +35,7 @@ public class MainNavigation extends AppCompatActivity
                     return true;
                 case R.id.navigation_dashboard:
                     ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.your_placeholder, new DBInteractionFragment());
+                    ft.replace(R.id.your_placeholder, DBInteractionFragment.newInstance());
                     ft.commit();
                     return true;
                 case R.id.navigation_notifications:
@@ -67,8 +67,8 @@ public class MainNavigation extends AppCompatActivity
     }
 
     @Override
-    public void onDBInteraction(Uri uri){
-        return;
+    public void onDBAddBook(Book book){
+        dbhelper.insertBook(book.get_name(), book.get_number(), book.get_year(), book.get_rating());
     }
 
     @Override
