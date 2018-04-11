@@ -69,6 +69,18 @@ public class DBInteractionFragment extends Fragment {
         _save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(_name.getText().toString().equals("")){
+                    return;
+                }
+                if(_number.getText().toString().equals("")){
+                    return;
+                }
+                if(_year.getText().toString().equals("")){
+                    return;
+                }
+                if(_rating.getText().toString().equals("")){
+                    return;
+                }
                 Book book = new Book(
                         _name.getText().toString(),
                         Integer.valueOf(_number.getText().toString()),
