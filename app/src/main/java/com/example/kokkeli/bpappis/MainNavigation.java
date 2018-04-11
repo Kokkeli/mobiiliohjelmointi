@@ -76,6 +76,11 @@ public class MainNavigation extends AppCompatActivity
         return dbhelper.getAllBooks();
     }
 
+    @Override
+    public void onDBDeleteBook(Integer book_number){
+        dbhelper.deleteBook(book_number);
+    }
+
 
 
 }

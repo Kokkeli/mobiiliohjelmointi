@@ -32,6 +32,8 @@ public class DBInteractionFragment extends Fragment {
     private EditText _year;
     private EditText _rating;
     private Button _save;
+    private EditText _number_to_delete;
+    private Button _delete;
 
     public DBInteractionFragment() {
         // Required empty public constructor
@@ -65,7 +67,9 @@ public class DBInteractionFragment extends Fragment {
         _number = (EditText)view.findViewById(R.id.bookNumber);
         _rating = (EditText)view.findViewById(R.id.bookRating);
         _year = (EditText)view.findViewById(R.id.bookYear);
+        _number_to_delete = (EditText)view.findViewById(R.id.bookToDelete);
         _save = (Button)view.findViewById(R.id.save);
+        _delete = (Button)view.findViewById(R.id.delete);
         _save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,9 +94,17 @@ public class DBInteractionFragment extends Fragment {
                 mListener.onDBAddBook(book);
             }
         });
+        _delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(_number_to_delete.getText().toString().equals("")){
+                    return;
+                }
+                mListener.onDBDeleteBook(Integer.valueOf(_number_to_delete.getText().toString()));
+            }
+        });
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -124,6 +136,7 @@ public class DBInteractionFragment extends Fragment {
     public interface OnDBInteractionListener {
         // TODO: Update argument type and name
         void onDBAddBook(Book book);
+        void onDBDeleteBook(Integer i);
     }
 
 

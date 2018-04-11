@@ -70,11 +70,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }*/
 
-    public Integer deleteBook(Integer id) {
+    public Integer deleteBook(Integer book_number) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(BOOK_TABLE_NAME,
-                BOOK_COLUMN_ID + " = ? ",
-                new String[] { Integer.toString(id) });
+                BOOK_COLUMN_NUMBER + " = ? ",
+                new String[] { Integer.toString(book_number) });
     }
 /*
     public Cursor getPerson(int id) {
@@ -86,7 +86,7 @@ public class DBHelper extends SQLiteOpenHelper {
 */
     public Cursor getAllBooks() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "SELECT * FROM " + BOOK_TABLE_NAME, null );
+        Cursor res =  db.rawQuery( "SELECT * FROM " + BOOK_TABLE_NAME + " ORDER BY " + BOOK_COLUMN_NUMBER + " ASC", null );
         return res;
     }
 }
