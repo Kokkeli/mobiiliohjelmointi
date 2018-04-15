@@ -36,4 +36,13 @@ Valmis harjoitus löytyy haarasta harkka5.
 https://github.com/Kokkeli/mobiiliohjelmointi/tree/harkka6
 Tämä harjoitus sujui helposti heti viidennen harjoituksen jälkeen. Poistamis ja järjestämis -ominausiiksien lisääminen oli helppoa, kun oikeat dokumentaatiot ja esimerkit olivat jo valmiiksi välilehdissä avonaisina.
 
-Harjoitus syvensi osaamistani sqlite+android ympäristössä. Yksi kokonaan uusi query tuli käyttöön (delete) ja kaikkien kirjojen haku queryyn tuli lisättyä järjestyksessä haku.
+Harjoitus syvensi hieman osaamistani sqlite+android ympäristössä. Yksi kokonaan uusi query tulikäyttöön (delete) ja kaikkien kirjojen haku queryyn tuli lisättyä järjestyksessä haku.
+
+___
+### Harjoitus 7 ja 8
+Harjoitukset 7 ja 8 tein samaan aikaan samaan haaraan:
+https://github.com/Kokkeli/mobiiliohjelmointi/tree/harkka7
+
+Autentikoinnin ja peruskäytön toteutus firebaseen "samanaikaisesti" tuntui luontevalta, joten sekä harjoitus 7 että harjoitus 8 tulivat valmiiksi käsikädessä. Autentikoinnin luonnissa ei ollut suuria ongelmia. Firebase tarjosi suoraan toimivat esimerkit, joilla sai email+password autentikaation toimimaan. Itse sovellukseen piti vain lisätä login activity, josta onnistuvat login ja signup toiminnot. Firebasen säännöt on konfiguroitu niin, että tietokantaan pääsee kirjoittamaan ja lukemaan vain autentikoidut käyttäjät.
+
+Peruskäytön toteutus firebasella oli pienen opiskelun jälkeen varsin helppoa. Firebasen omasta wikistä löytyi hyvät ohjeet tietojen lisäämiseen, hakemiseen ja poistamiseen. Suurimmaksi ongelmaksi osoittautui android puolella ilmennyt virhe, joka aiheutti ohjelman kaatumisen. Virhe ilmeni, kun yritin piirtää databaselta saatuja kirjoja ennen kuin edellisen haun kirjat olivat piirretty. Toisin sanoen kun käyttäjä painoi Books välilehteä nopeasti putkeen. Syy ongelmaan oli null kontekstin käyttö. Ongelmasta pääsin eroon varmistamalla kontekstin saatavuus ennen kirjojen piirtämistä. Suurin ongelma siis liittyi android navigaation rakennusvaiheiden järjestykseen. Ongelmista selviydyttyäni ymmärrykseni androidin rakennuspalikoihin syveni jälleen hieman.
