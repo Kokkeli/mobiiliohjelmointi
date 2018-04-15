@@ -12,7 +12,16 @@ import android.widget.ListView;
 import android.app.Activity;
 import android.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.Console;
+import java.util.*;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,16 +32,9 @@ import android.support.v7.app.AppCompatActivity;
  * create an instance of this fragment.
  */
 public class DBContentFragment extends android.support.v4.app.Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    CursorInterface cursorint;
-
     ListView listView;
 
-    // TODO: Rename and change types of parameters
+    private DatabaseReference mDatabase;
 
     private OnFragmentInteractionListener mListener;
 
@@ -40,13 +42,6 @@ public class DBContentFragment extends android.support.v4.app.Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment DBContentFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static DBContentFragment newInstance() {
         DBContentFragment fragment = new DBContentFragment();
         Bundle args = new Bundle();
@@ -60,6 +55,7 @@ public class DBContentFragment extends android.support.v4.app.Fragment {
         if (getArguments() != null) {
 
         }
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -68,7 +64,26 @@ public class DBContentFragment extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_db_contents, container, false);
         listView = (ListView)view.findViewById(R.id.content);
-        final Cursor cursor = cursorint.getBooksCursor();
+
+        mDatabase.child("books").addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        List<Book> books = new ArrayList<Book>();
+                        for(DataSnapshot snap : dataSnapshot.getChildren()){
+                            Book book = snap.getValue(Book.class);
+                            books.add(book);
+                        }
+                        updateContent(books);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        System.out.println("The read failed: " + databaseError.getCode());
+                    }
+                }
+        );
+        /*final Cursor cursor = cursorint.getBooksCursor();
         if(cursor != null && cursor.getCount()>0){
             String [] columns = new String[] {
                     DBHelper.BOOK_COLUMN_NAME,
@@ -85,8 +100,21 @@ public class DBContentFragment extends android.support.v4.app.Fragment {
 
             SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this.getContext(), R.layout.book_info, cursor, columns, widgets, 0);
             listView.setAdapter(cursorAdapter);
-        }
+        }*/
         return view;
+    }
+
+    private void updateContent(List<Book> books){
+        if(super.getContext() == null){
+            // Activity is not ready and context is not available.
+            // Dont update context for now
+            // This happens when this view is created again before previous is ready.
+            return;
+        }
+        BookList adapter = new BookList(super.getContext(), R.layout.book_info, books);
+
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -111,14 +139,12 @@ public class DBContentFragment extends android.support.v4.app.Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        cursorint = (CursorInterface) activity;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
-        cursorint = null;
     }
 
     /**
@@ -135,9 +161,4 @@ public class DBContentFragment extends android.support.v4.app.Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-    public interface CursorInterface {
-        Cursor getBooksCursor();
-    }
-
 }

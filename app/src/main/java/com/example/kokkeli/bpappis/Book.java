@@ -4,28 +4,33 @@ package com.example.kokkeli.bpappis;
 /**
  * Created by Kokkeli on 09/04/2018.
  */
+import com.google.firebase.database.IgnoreExtraProperties;
 
+// [START blog_user_class]
+@IgnoreExtraProperties
 public class Book {
-    private String _name;
-    private int _number, _year, _rating;
+    public String name;
+    public int number, year, rating;
+
+    public Book() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
 
     public Book(String name, int number, int year, int rating){
-        _name = name;
-        _number = number;
-        _year = year;
-        _rating = rating;
+        this.name = name;
+        this.number = number;
+        this.year = year;
+        this.rating = rating;
     }
 
     public String get_name(){
-        return _name;
+        return name;
     }
     public int get_number(){
-        return _number;
+        return number;
     }
     public int get_year(){
-        return _year;
+        return year;
     }
-    public int get_rating(){
-        return _rating;
-    }
+    public int get_rating(){ return rating; }
 }

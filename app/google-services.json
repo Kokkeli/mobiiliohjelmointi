@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "983579944371",
+    "firebase_url": "https://mobiiliohjelmointi-harkka7-8.firebaseio.com",
+    "project_id": "mobiiliohjelmointi-harkka7-8",
+    "storage_bucket": "mobiiliohjelmointi-harkka7-8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983579944371:android:42da6a1345745c65",
+        "android_client_info": {
+          "package_name": "com.example.kokkeli.bpappis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "983579944371-8lnqm9bnqe0kvhe9hschvaao1j7lldqe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWU3gBF9NS7g14SNpNgXbuV6PSr1kRg8A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
