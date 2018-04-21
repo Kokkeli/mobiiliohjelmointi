@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +25,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText mEmailField;
     private EditText mPasswordField;
+    private EditText mUsernameField;
     private Button mSignInButton;
     private Button mSignUpButton;
 
@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Views
         mEmailField = findViewById(R.id.email);
+        mUsernameField = findViewById(R.id.uname);
         mPasswordField = findViewById(R.id.password);
         mSignInButton = findViewById(R.id.login_button);
         mSignUpButton = findViewById(R.id.register_button);
@@ -65,7 +66,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
-
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -73,7 +73,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful()) {
                             onAuthSuccess(task.getResult().getUser());
                         } else {
-                            // inform failure
+                            mEmailField.setError("Login failed, try again");
+                            mPasswordField.setError("Login failed, try again");
                         }
                     }
                 });
@@ -83,10 +84,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (!validateForm()) {
             return;
         }
+        // Validate that user has valid username
+        if (TextUtils.isEmpty(mUsernameField.getText().toString())) {
+            // TODO: Validate that username is unique!!!
+            mUsernameField.setError("Required");
+            return;
+        }
+
 
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
-
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -101,7 +108,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void onAuthSuccess(FirebaseUser user) {
-        String username = usernameFromEmail(user.getEmail());
+        String username = mUsernameField.getText().toString();
 
         // Write new user
         writeNewUser(user.getUid(), username, user.getEmail());
@@ -109,14 +116,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Go to MainActivity
         startActivity(new Intent(LoginActivity.this, MainNavigation.class));
         finish();
-    }
-
-    private String usernameFromEmail(String email) {
-        if (email.contains("@")) {
-            return email.split("@")[0];
-        } else {
-            return email;
-        }
     }
 
     private boolean validateForm() {

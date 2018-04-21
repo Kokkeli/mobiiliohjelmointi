@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainNavigation extends AppCompatActivity
         implements
         DBContentFragment.OnFragmentInteractionListener,
-        DBInteractionFragment.OnDBInteractionListener
+        AddNewResultFragment.InteractionListener
 {
 
     private FragmentTransaction ft;
@@ -37,7 +37,7 @@ public class MainNavigation extends AppCompatActivity
                     return true;
                 case R.id.navigation_dashboard:
                     ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.your_placeholder, DBInteractionFragment.newInstance());
+                    ft.replace(R.id.your_placeholder, AddNewResultFragment.newInstance());
                     ft.commit();
                     return true;
                 case R.id.navigation_notifications:
@@ -68,11 +68,10 @@ public class MainNavigation extends AppCompatActivity
     }
 
     @Override
-    public void onDBAddBook(Book book){
+    public void onAddResult(Result res){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference booksRef = ref.child("books");
-
-        booksRef.push().setValue(book);
+        DatabaseReference resref = ref.child("results");
+        resref.push().setValue(res);
     }
 
     @Override
