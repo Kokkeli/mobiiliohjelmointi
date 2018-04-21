@@ -5,11 +5,24 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.support.v4.app.FragmentTransaction;
+import android.net.Uri;
 
-public class MainNavigation extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
-    private TextView mTextMessage;
+public class MainNavigation extends AppCompatActivity
+        implements
+        DBContentFragment.OnFragmentInteractionListener,
+        DBInteractionFragment.OnDBInteractionListener
+{
+
+    private FragmentTransaction ft;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -18,13 +31,17 @@ public class MainNavigation extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.your_placeholder, DBContentFragment.newInstance());
+                    ft.commit();
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.your_placeholder, DBInteractionFragment.newInstance());
+                    ft.commit();
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    FirebaseAuth.getInstance().signOut();
                     return true;
             }
             return false;
@@ -36,9 +53,43 @@ public class MainNavigation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        // Begin the transaction
+        ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.your_placeholder, new DBContentFragment());
+        ft.commit();
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri){
+        return;
+    }
+
+    @Override
+    public void onDBAddBook(Book book){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference booksRef = ref.child("books");
+
+        booksRef.push().setValue(book);
+    }
+
+    @Override
+    public void onDBDeleteBook(Integer book_number){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        Query queryRef = ref.child("books").orderByChild("number").equalTo(book_number);
+        queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    snapshot.getRef().removeValue();
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError err){
+                System.out.println("The read failed: " + err.getCode());
+            }
+        });
+    }
 }
