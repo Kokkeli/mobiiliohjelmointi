@@ -65,16 +65,16 @@ public class DBContentFragment extends android.support.v4.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_db_contents, container, false);
         listView = (ListView)view.findViewById(R.id.content);
 
-        mDatabase.child("books").addValueEventListener(
+        mDatabase.child("results").addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<Book> books = new ArrayList<Book>();
+                        List<Result> results = new ArrayList<Result>();
                         for(DataSnapshot snap : dataSnapshot.getChildren()){
-                            Book book = snap.getValue(Book.class);
-                            books.add(book);
+                            Result result = snap.getValue(Result.class);
+                            results.add(result);
                         }
-                        updateContent(books);
+                        updateContent(results);
                     }
 
                     @Override
@@ -83,35 +83,17 @@ public class DBContentFragment extends android.support.v4.app.Fragment {
                     }
                 }
         );
-        /*final Cursor cursor = cursorint.getBooksCursor();
-        if(cursor != null && cursor.getCount()>0){
-            String [] columns = new String[] {
-                    DBHelper.BOOK_COLUMN_NAME,
-                    DBHelper.BOOK_COLUMN_NUMBER,
-                    DBHelper.BOOK_COLUMN_RATING,
-                    DBHelper.BOOK_COLUMN_YEAR
-            };
-            int [] widgets = new int[] {
-                    R.id.bookName,
-                    R.id.bookNumber,
-                    R.id.bookRating,
-                    R.id.bookYear
-            };
-
-            SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this.getContext(), R.layout.book_info, cursor, columns, widgets, 0);
-            listView.setAdapter(cursorAdapter);
-        }*/
         return view;
     }
 
-    private void updateContent(List<Book> books){
+    private void updateContent(List<Result> results){
         if(super.getContext() == null){
             // Activity is not ready and context is not available.
             // Dont update context for now
             // This happens when this view is created again before previous is ready.
             return;
         }
-        BookList adapter = new BookList(super.getContext(), R.layout.book_info, books);
+        ResultList adapter = new ResultList(super.getContext(), R.layout.result_info, results);
 
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

@@ -42,6 +42,7 @@ public class MainNavigation extends AppCompatActivity
                     return true;
                 case R.id.navigation_notifications:
                     FirebaseAuth.getInstance().signOut();
+                    finish();
                     return true;
             }
             return false;

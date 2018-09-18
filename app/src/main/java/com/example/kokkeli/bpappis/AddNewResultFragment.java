@@ -24,13 +24,12 @@ public class AddNewResultFragment extends Fragment {
 
     private InteractionListener mListener;
 
-    private Spinner _winner;
     private Spinner _cupsleft;
 
-    private EditText _team1player1;
-    private EditText _team1player2;
-    private EditText _team2player1;
-    private EditText _team2player2;
+    private EditText _winner1;
+    private EditText _winner2;
+    private EditText _loser1;
+    private EditText _loser2;
 
     private Button _save;
 
@@ -63,50 +62,37 @@ public class AddNewResultFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_addresult, container, false);
 
-        _winner = (Spinner)view.findViewById(R.id.winner);
-        ArrayAdapter<CharSequence> winner_adapter = ArrayAdapter.createFromResource(
-                this.getContext(), R.array.winner_array, R.layout.spinner_layout);
-        _winner.setAdapter(winner_adapter);
-
         _cupsleft = (Spinner)view.findViewById(R.id.cups);
         ArrayAdapter<CharSequence> _cupsadapter = ArrayAdapter.createFromResource(
                 this.getContext(), R.array.cups_array, R.layout.spinner_layout);
         _cupsleft.setAdapter(_cupsadapter);
 
-        _team1player1 = (EditText)view.findViewById(R.id.team1player1);
-        _team1player2 = (EditText)view.findViewById(R.id.team1player2);
-        _team2player1 = (EditText)view.findViewById(R.id.team2player1);
-        _team2player2 = (EditText)view.findViewById(R.id.team2player2);
+        _winner1 = (EditText)view.findViewById(R.id.team1player1);
+        _winner2 = (EditText)view.findViewById(R.id.team1player2);
+        _loser1 = (EditText)view.findViewById(R.id.team2player1);
+        _loser2 = (EditText)view.findViewById(R.id.team2player2);
 
         _save = (Button)view.findViewById(R.id.save);
         _save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(_team1player1.getText().toString().equals("")){
+                if(_winner1.getText().toString().equals("")){
                     return;
                 }
-                if(_team1player2.getText().toString().equals("")){
+                if(_winner2.getText().toString().equals("")){
                     return;
                 }
-                if(_team2player1.getText().toString().equals("")){
+                if(_loser1.getText().toString().equals("")){
                     return;
                 }
-                if(_team2player2.getText().toString().equals("")){
+                if(_loser2.getText().toString().equals("")){
                     return;
-                }
-                Integer winnerteam = new Integer(1);
-                switch (_winner.getSelectedItem().toString()){
-                    case "Team 1":
-                        winnerteam = 1;
-                    case "Team 2":
-                        winnerteam = 2;
                 }
 
-                Result res = new Result(_team1player1.getText().toString(),
-                        _team1player2.getText().toString(),
-                        _team2player1.getText().toString(),
-                        _team2player2.getText().toString(),
-                        winnerteam,
+                Result res = new Result(_winner1.getText().toString(),
+                        _winner2.getText().toString(),
+                        _loser1.getText().toString(),
+                        _loser2.getText().toString(),
                         Integer.parseInt(_cupsleft.getSelectedItem().toString()));
 
                 mListener.onAddResult(res);
