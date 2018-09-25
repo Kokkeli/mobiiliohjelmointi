@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -55,7 +56,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Check auth on Activity start
         if (mAuth.getCurrentUser() != null) {
-            onAuthSuccess(mAuth.getCurrentUser());
+            startActivity(new Intent(LoginActivity.this, MainNavigation.class));
+            finish();
         }
     }
 
@@ -112,6 +114,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Write new user
         writeNewUser(user.getUid(), username, user.getEmail());
+
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(username).build();
 
         // Go to MainActivity
         startActivity(new Intent(LoginActivity.this, MainNavigation.class));

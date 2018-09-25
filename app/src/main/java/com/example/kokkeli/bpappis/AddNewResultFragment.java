@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import java.util.HashSet;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,16 +78,36 @@ public class AddNewResultFragment extends Fragment {
         _save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(_winner1.getText().toString().equals("")){
+                String win1 = _winner1.getText().toString();
+                String win2 = _winner2.getText().toString();
+                String los1 = _loser1.getText().toString();
+                String los2 = _loser2.getText().toString();
+                // TODO error notifications
+                if(win1.equals("")){
                     return;
                 }
-                if(_winner2.getText().toString().equals("")){
+                if(win2.equals("")){
                     return;
                 }
-                if(_loser1.getText().toString().equals("")){
+                if(los1.equals("")){
                     return;
                 }
-                if(_loser2.getText().toString().equals("")){
+                if(los2.equals("")){
+                    return;
+                }
+                HashSet<String> test = new HashSet<>();
+                // If adding to hash set returns false -> object was there already
+                // This way we can check that all of the inputted names are unique
+                if(!test.add(win1)){
+                    return;
+                }
+                if(!test.add(win2)){
+                    return;
+                }
+                if(!test.add(los1)){
+                    return;
+                }
+                if(!test.add(los2)){
                     return;
                 }
 
@@ -97,7 +119,6 @@ public class AddNewResultFragment extends Fragment {
 
                 mListener.onAddResult(res);
                 // TODO check if all usernames are present in the database, if not -> confirm push from user
-                // TODO save also personal data for each player. atleast win/lose
             }
         });
         return view;
@@ -120,20 +141,8 @@ public class AddNewResultFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface InteractionListener {
-        // TODO: Update argument type and name
         void onAddResult(Result r);
-        void onDBDeleteBook(Integer i);
     }
 
 

@@ -16,13 +16,25 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.*;
+
 public class MainNavigation extends AppCompatActivity
         implements
-        DBContentFragment.OnFragmentInteractionListener,
-        AddNewResultFragment.InteractionListener
+        DBContentFragment.DBContentInteractionListener,
+        AddNewResultFragment.InteractionListener,
+        StatsFragment.StatsFragmentInteractionListener
 {
-
     private FragmentTransaction ft;
+
+    private DatabaseReference mDatabase;
+
+    private List<Result> _results;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -30,17 +42,22 @@ public class MainNavigation extends AppCompatActivity
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_stats:
+                    ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.your_placeholder, StatsFragment.newInstance());
+                    ft.commit();
+                    return true;
+                case R.id.navigation_games:
                     ft = getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.your_placeholder, DBContentFragment.newInstance());
                     ft.commit();
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_add:
                     ft = getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.your_placeholder, AddNewResultFragment.newInstance());
                     ft.commit();
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_logout:
                     FirebaseAuth.getInstance().signOut();
                     finish();
                     return true;
@@ -56,6 +73,26 @@ public class MainNavigation extends AppCompatActivity
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        _results = new ArrayList<Result>();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        // Set listener for results
+        mDatabase.child("results").addValueEventListener(
+            new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    _results = new ArrayList<Result>();
+                    for(DataSnapshot snap : dataSnapshot.getChildren()){
+                        Result result = snap.getValue(Result.class);
+                        _results.add(result);
+                    }
+                    // Todo: call to update all fragments?
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            }
+        );
 
         // Begin the transaction
         ft = getSupportFragmentManager().beginTransaction();
@@ -64,17 +101,12 @@ public class MainNavigation extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri){
-        return;
-    }
-
-    @Override
     public void onAddResult(Result res){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         DatabaseReference resref = ref.child("results");
         resref.push().setValue(res);
     }
-
+/*
     @Override
     public void onDBDeleteBook(Integer book_number){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -91,5 +123,21 @@ public class MainNavigation extends AppCompatActivity
                 System.out.println("The read failed: " + err.getCode());
             }
         });
+    }*/
+
+    @Override
+    public List<Result>getAllResults(){
+        return _results;
+    }
+
+    @Override
+    public List<Result>getResultsForName(String uname){
+        List<Result> response = new ArrayList<Result>();
+        for(Result res : _results){
+            if(res.winner1.equals(uname) || res.winner2.equals(uname) || res.loser1.equals(uname) || res.loser2.equals(uname)){
+                response.add(res);
+            }
+        }
+        return response;
     }
 }
